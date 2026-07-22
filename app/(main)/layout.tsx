@@ -19,7 +19,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
     .single();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-cream">
       <Navbar
         displayName={profile?.display_name ?? user.email?.split("@")[0] ?? "Học viên"}
         avatarUrl={profile?.avatar_url ?? null}

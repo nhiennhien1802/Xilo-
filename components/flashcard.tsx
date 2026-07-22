@@ -93,51 +93,51 @@ export default function Flashcard({ word, userId, onNext }: FlashcardProps) {
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           {/* MẶT TRƯỚC */}
-          <div className="absolute inset-0 [backface-visibility:hidden] rounded-2xl bg-white shadow-lg border border-slate-200 flex flex-col items-center justify-center gap-3 p-6">
+          <div className="absolute inset-0 [backface-visibility:hidden] rounded-4xl bg-white shadow-xl shadow-lavender-light border-4 border-lavender-light flex flex-col items-center justify-center gap-3 p-6">
             <button
               onClick={playAudio}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+              className="absolute top-4 right-4 p-2.5 rounded-full bg-mint-light hover:bg-mint text-mint-dark hover:text-white transition-colors"
               aria-label="Phát âm"
             >
-              <Volume2 className="w-5 h-5 text-slate-600" />
+              <Volume2 className="w-5 h-5" />
             </button>
 
             {word.radical && (
-              <span className="text-xs text-slate-400 tracking-wide">
+              <span className="text-xs font-bold text-lavender-dark bg-lavender-light px-3 py-1 rounded-full tracking-wide">
                 Bộ thủ: {word.radical}
               </span>
             )}
 
-            <span className="text-7xl font-bold text-slate-800 leading-none">
+            <span className="font-display text-7xl font-extrabold text-coral leading-none">
               {word.word}
             </span>
-            <span className="text-xl text-sky-600 font-medium">{word.pinyin}</span>
+            <span className="text-xl text-plum/70 font-bold">{word.pinyin}</span>
 
-            <span className="absolute bottom-4 text-xs text-slate-400">
-              Chạm để xem nghĩa
+            <span className="absolute bottom-4 text-xs font-bold text-plum/40">
+              👆 Chạm để xem nghĩa
             </span>
           </div>
 
           {/* MẶT SAU */}
-          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl bg-slate-800 text-white shadow-lg flex flex-col items-center justify-center gap-4 p-6">
+          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-4xl bg-lavender text-white shadow-xl flex flex-col items-center justify-center gap-4 p-6">
             {word.word_type && (
-              <span className="text-xs uppercase tracking-wide text-sky-300 bg-sky-900/40 px-2 py-1 rounded">
+              <span className="text-xs font-bold uppercase tracking-wide text-lavender-dark bg-white px-3 py-1 rounded-full">
                 {word.word_type}
               </span>
             )}
 
-            <span className="text-2xl font-semibold text-center">
+            <span className="font-display text-2xl font-bold text-center">
               {word.meaning_vi}
             </span>
 
             {word.example_sentence && (
-              <div className="text-center border-t border-slate-600 pt-3 mt-1 space-y-1">
-                <p className="text-lg">{word.example_sentence}</p>
+              <div className="text-center border-t-2 border-white/25 pt-3 mt-1 space-y-1">
+                <p className="text-lg font-bold">{word.example_sentence}</p>
                 {word.example_pinyin && (
-                  <p className="text-sky-300 text-sm">{word.example_pinyin}</p>
+                  <p className="text-honey-light text-sm font-bold">{word.example_pinyin}</p>
                 )}
                 {word.example_meaning_vi && (
-                  <p className="text-slate-300 text-sm italic">
+                  <p className="text-white/80 text-sm italic">
                     {word.example_meaning_vi}
                   </p>
                 )}
@@ -149,19 +149,19 @@ export default function Flashcard({ word, userId, onNext }: FlashcardProps) {
                 e.stopPropagation();
                 setShowHanzi((prev) => !prev);
               }}
-              className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors mt-1"
+              className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors mt-1"
             >
               <PenSquare className="w-3.5 h-3.5" />
               {showHanzi ? "Ẩn nét vẽ" : "Xem nét vẽ chữ Hán"}
             </button>
 
             {showHanzi && (
-              <div onClick={(e) => e.stopPropagation()}>
-                <HanziWriter character={word.word} width={160} height={160} strokeColor="#f8fafc" />
+              <div onClick={(e) => e.stopPropagation()} className="bg-white rounded-3xl p-2">
+                <HanziWriter character={word.word} width={150} height={150} strokeColor="#3D3557" />
               </div>
             )}
 
-            <span className="absolute bottom-4 text-xs text-slate-400 flex items-center gap-1">
+            <span className="absolute bottom-4 text-xs font-bold text-white/60 flex items-center gap-1">
               <RotateCcw className="w-3 h-3" /> Chạm để quay lại
             </span>
           </div>
@@ -175,7 +175,7 @@ export default function Flashcard({ word, userId, onNext }: FlashcardProps) {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="text-sm text-slate-500"
+            className="text-sm font-bold text-plum/60 bg-honey-light px-4 py-1.5 rounded-full"
           >
             {feedback}
           </motion.div>
@@ -188,21 +188,21 @@ export default function Flashcard({ word, userId, onNext }: FlashcardProps) {
           <button
             disabled={isSaving}
             onClick={(e) => handleGrade("Hard", e)}
-            className="py-3 rounded-xl bg-red-100 text-red-700 font-medium hover:bg-red-200 transition-colors disabled:opacity-50"
+            className="py-3 rounded-2xl bg-coral-light text-coral-dark font-extrabold hover:bg-coral hover:text-white transition-colors disabled:opacity-50"
           >
             Khó
           </button>
           <button
             disabled={isSaving}
             onClick={(e) => handleGrade("Good", e)}
-            className="py-3 rounded-xl bg-amber-100 text-amber-700 font-medium hover:bg-amber-200 transition-colors disabled:opacity-50"
+            className="py-3 rounded-2xl bg-honey-light text-honey-dark font-extrabold hover:bg-honey hover:text-white transition-colors disabled:opacity-50"
           >
             Tốt
           </button>
           <button
             disabled={isSaving}
             onClick={(e) => handleGrade("Easy", e)}
-            className="py-3 rounded-xl bg-emerald-100 text-emerald-700 font-medium hover:bg-emerald-200 transition-colors disabled:opacity-50"
+            className="py-3 rounded-2xl bg-mint-light text-mint-dark font-extrabold hover:bg-mint hover:text-white transition-colors disabled:opacity-50"
           >
             Dễ
           </button>

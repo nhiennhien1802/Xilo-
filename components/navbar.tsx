@@ -43,12 +43,16 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-cream/90 backdrop-blur-sm border-b-2 border-coral-light">
       <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
-        <a href="/dashboard" className="flex items-center gap-2 shrink-0">
-          <span className="text-2xl leading-none">🀄</span>
-          <span className="font-bold text-slate-800 hidden sm:inline">HSK Học Vui</span>
+        <a href="/dashboard" className="flex items-center gap-2 shrink-0 group">
+          <span className="text-2xl leading-none w-9 h-9 rounded-2xl bg-coral-light flex items-center justify-center group-hover:scale-105 transition-transform">
+            🐼
+          </span>
+          <span className="font-display font-bold text-lg text-plum hidden sm:inline">
+            HSK Học Vui
+          </span>
         </a>
 
         {/* Menu điều hướng nhanh */}
@@ -57,7 +61,7 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
             <a
               key={link.href}
               href={link.href}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-bold text-plum/70 hover:bg-lavender-light hover:text-plum transition-colors"
             >
               <link.icon className="w-4 h-4" />
               {link.label}
@@ -66,22 +70,22 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
         </nav>
 
         {/* Streak + XP + Account menu */}
-        <div className="flex items-center gap-3 shrink-0">
-          <span className="flex items-center gap-1 text-sm font-medium text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full">
-            <Flame className="w-4 h-4" />
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="flex items-center gap-1 text-sm font-extrabold text-honey-dark bg-honey-light px-3 py-1.5 rounded-full">
+            <Flame className="w-4 h-4 fill-honey-dark" />
             {streakCount}
           </span>
-          <span className="flex items-center gap-1 text-sm font-medium text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">
-            <Star className="w-4 h-4" />
+          <span className="flex items-center gap-1 text-sm font-extrabold text-mint-dark bg-mint-light px-3 py-1.5 rounded-full">
+            <Star className="w-4 h-4 fill-mint-dark" />
             {xp}
           </span>
 
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="flex items-center gap-1.5 pl-1 pr-2 py-1 rounded-full hover:bg-slate-100 transition-colors"
+              className="flex items-center gap-1.5 pl-1 pr-2 py-1 rounded-full hover:bg-lavender-light transition-colors"
             >
-              <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-sm font-bold text-slate-500">
+              <div className="w-9 h-9 rounded-full bg-lavender ring-2 ring-lavender-light overflow-hidden flex items-center justify-center text-sm font-extrabold text-white">
                 {avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
@@ -89,22 +93,22 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
                   displayName.charAt(0).toUpperCase()
                 )}
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
+              <ChevronDown className="w-3.5 h-3.5 text-plum/50 hidden sm:block" />
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-                <div className="px-4 py-3 border-b border-slate-100">
-                  <p className="text-sm font-medium text-slate-800 truncate">{displayName}</p>
+              <div className="absolute right-0 mt-2 w-52 bg-white rounded-3xl border-2 border-lavender-light shadow-xl overflow-hidden">
+                <div className="px-4 py-3 border-b-2 border-cream bg-lavender-light/40">
+                  <p className="text-sm font-extrabold text-plum truncate">{displayName}</p>
                 </div>
 
                 {/* Menu điều hướng thu gọn cho mobile, chỉ hiện dưới md */}
-                <div className="md:hidden border-b border-slate-100">
+                <div className="md:hidden border-b-2 border-cream">
                   {NAV_LINKS.map((link) => (
                     <a
                       key={link.href}
                       href={link.href}
-                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-plum/70 hover:bg-lavender-light/50"
                     >
                       <link.icon className="w-4 h-4" />
                       {link.label}
@@ -114,7 +118,7 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
 
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                  className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-coral-dark hover:bg-coral-light/50 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
                   Đăng xuất

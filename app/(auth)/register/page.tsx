@@ -74,7 +74,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-cream px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-6">
         <div className="text-center space-y-1">
           <h1 className="text-2xl font-bold text-slate-800">Tạo tài khoản</h1>
@@ -131,7 +131,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium disabled:opacity-50"
+              className="w-full py-2.5 rounded-2xl bg-coral hover:bg-coral-dark text-white font-medium disabled:opacity-50"
             >
               {isLoading ? "Đang tạo tài khoản..." : "Đăng ký"}
             </button>

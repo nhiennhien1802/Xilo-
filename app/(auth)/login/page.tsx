@@ -46,7 +46,7 @@ function LoginForm() {
     }
 
     router.push(redirectedFrom);
-    router.refresh();
+    router.refresh(); // đảm bảo Server Components nhận session mới
   };
 
   const handleGoogleLogin = async () => {
@@ -64,7 +64,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-cream px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-6">
         <div className="text-center space-y-1">
           <h1 className="text-2xl font-bold text-slate-800">Đăng nhập</h1>
@@ -104,7 +104,7 @@ function LoginForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium disabled:opacity-50"
+            className="w-full py-2.5 rounded-2xl bg-coral hover:bg-coral-dark text-white font-medium disabled:opacity-50"
           >
             {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
           </button>
@@ -118,7 +118,7 @@ function LoginForm() {
 
         <button
           onClick={handleGoogleLogin}
-          className="w-full py-2.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium flex items-center justify-center gap-2"
+          className="w-full py-2.5 rounded-lg border border-slate-300 hover:bg-cream text-slate-700 font-medium flex items-center justify-center gap-2"
         >
           <GoogleIcon />
           Đăng nhập với Google
