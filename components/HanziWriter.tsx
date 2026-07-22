@@ -49,7 +49,14 @@ export default function HanziWriter({
       // charDataLoader: (char, onLoad) => {
       //   import(`hanzi-writer-data/${char}.json`).then(onLoad);
       // },
-      onLoadCharDataSuccess: () => setIsReady(true),
+      onLoadCharDataSuccess: () => {
+        setIsReady(true);
+        // Hiện ngay chữ hoàn chỉnh sau khi tải xong (trước đó không có bước này
+        // nên khung luôn trống cho tới khi bấm "Phát lại nét vẽ").
+        // Dùng writerRef.current thay vì biến "writer" vì tại thời điểm callback
+        // này được định nghĩa, HanziWriterLib.create() vẫn chưa return xong.
+        writerRef.current?.showCharacter();
+      },
       onLoadCharDataError: () => setIsReady(false),
     });
 
@@ -106,52 +113,4 @@ export default function HanziWriter({
       >
         {!isReady && (
           <span className="absolute inset-0 flex items-center justify-center text-xs text-slate-400">
-            Đang tải nét vẽ...
-          </span>
-        )}
-      </div>
-
-      {/* Thông báo kết quả quiz */}
-      {quizResult && (
-        <span
-          className={`text-sm font-medium ${
-            quizResult === "correct" ? "text-emerald-600" : "text-red-600"
-          }`}
-        >
-          {quizResult === "correct" ? "Chính xác! 🎉" : "Sai nét, thử lại nhé"}
-        </span>
-      )}
-
-      <div className="flex gap-2">
-        {mode !== "quiz" ? (
-          <>
-            <button
-              onClick={handleReplay}
-              disabled={!isReady || mode === "animating"}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium transition-colors disabled:opacity-50"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Phát lại nét vẽ
-            </button>
-            <button
-              onClick={handleStartQuiz}
-              disabled={!isReady}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-700 text-sm font-medium transition-colors disabled:opacity-50"
-            >
-              <PenLine className="w-4 h-4" />
-              Tập viết
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={handleExitQuiz}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-700 text-sm font-medium transition-colors"
-          >
-            <X className="w-4 h-4" />
-            Thoát tập viết
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
+            Đang tải
