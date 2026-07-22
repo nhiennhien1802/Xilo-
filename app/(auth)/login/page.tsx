@@ -1,11 +1,19 @@
 "use client";
 
 // app/(auth)/login/page.tsx
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectedFrom = searchParams.get("redirectedFrom") ?? "/dashboard";
@@ -38,7 +46,7 @@ export default function LoginPage() {
     }
 
     router.push(redirectedFrom);
-    router.refresh(); // đảm bảo Server Components nhận session mới
+    router.refresh();
   };
 
   const handleGoogleLogin = async () => {
