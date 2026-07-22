@@ -55,16 +55,16 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
           </span>
         </a>
 
-        {/* Menu điều hướng nhanh */}
-        <nav className="hidden md:flex items-center gap-1 flex-1">
+        {/* Menu điều hướng nhanh — luôn hiển thị trên mọi kích thước màn hình */}
+        <nav className="flex items-center gap-1 flex-1 overflow-x-auto scrollbar-hide">
           {NAV_LINKS.map((link) => (
-            <a
+            
               key={link.href}
               href={link.href}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-bold text-plum/70 hover:bg-lavender-light hover:text-plum transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-bold text-plum/70 hover:bg-lavender-light hover:text-plum transition-colors whitespace-nowrap shrink-0"
             >
               <link.icon className="w-4 h-4" />
-              {link.label}
+              <span className="hidden sm:inline">{link.label}</span>
             </a>
           ))}
         </nav>
@@ -88,46 +88,3 @@ export default function Navbar({ displayName, avatarUrl, streakCount, xp }: Navb
               <div className="w-9 h-9 rounded-full bg-lavender ring-2 ring-lavender-light overflow-hidden flex items-center justify-center text-sm font-extrabold text-white">
                 {avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={avatarUrl} alt={displayName} className="w-full h-full object-cover" />
-                ) : (
-                  displayName.charAt(0).toUpperCase()
-                )}
-              </div>
-              <ChevronDown className="w-3.5 h-3.5 text-plum/50 hidden sm:block" />
-            </button>
-
-            {menuOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-white rounded-3xl border-2 border-lavender-light shadow-xl overflow-hidden">
-                <div className="px-4 py-3 border-b-2 border-cream bg-lavender-light/40">
-                  <p className="text-sm font-extrabold text-plum truncate">{displayName}</p>
-                </div>
-
-                {/* Menu điều hướng thu gọn cho mobile, chỉ hiện dưới md */}
-                <div className="md:hidden border-b-2 border-cream">
-                  {NAV_LINKS.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-plum/70 hover:bg-lavender-light/50"
-                    >
-                      <link.icon className="w-4 h-4" />
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-coral-dark hover:bg-coral-light/50 transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                  Đăng xuất
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
