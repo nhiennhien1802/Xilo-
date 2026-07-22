@@ -1,5 +1,5 @@
 // lib/supabase/middleware.ts
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /** Các route công khai, không cần đăng nhập vẫn truy cập được */
@@ -16,7 +16,9 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(
+          cookiesToSet: { name: string; value: string; options: CookieOptions }[]
+        ) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
@@ -27,7 +29,6 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // QUAN TRỌNG: luôn gọi getUser() ở đây để Supabase tự refresh token hết hạn
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -35,14 +36,12 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isPublicRoute = PUBLIC_ROUTES.some((route) => path.startsWith(route));
 
-  // Chưa đăng nhập + đang vào route riêng tư -> đá về /login
   if (!user && !isPublicRoute) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("redirectedFrom", path);
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Đã đăng nhập nhưng lại vào /login hoặc /register -> đẩy thẳng vào dashboard
   if (user && (path.startsWith("/login") || path.startsWith("/register"))) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
